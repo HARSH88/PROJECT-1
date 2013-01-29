@@ -8,22 +8,27 @@ using System.Text;
 using System.Windows.Forms;
 //ADDED:    for xml
 using System.Xml;
+using NUnit.Framework;
 
 namespace BasicInformation
 {
+    [TestFixture]
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// This will read valid XML file and then display in richtext box.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btndisplay_Click(object sender, EventArgs e)
+        
+        public void btndisplay_Click(object sender, EventArgs e)
         {
+            
             XmlDocument myDocument = new XmlDocument();
             try
             {
@@ -32,6 +37,7 @@ namespace BasicInformation
             catch (System.IO.FileNotFoundException ex)
             {
                 MessageBox.Show("Can't find file." + Environment.NewLine + ex.Message.ToString());
+                //Assert.Fail("exception");
             }
             catch (SystemException ex)
             {
@@ -49,28 +55,30 @@ namespace BasicInformation
                    // this.AddLine("NAME# " + curNode.InnerText.ToString());    //can also add any text particular if you want
                     this.AddLine(curNode.InnerText.ToString());
                 }
-            
+
             }
         }
         
-            
+            [Test]
             /// <summary>
             /// this is for the placement of line in text box.
             /// </summary>
             /// <param name="theText"></param>
-            private void AddLine(string theText)
+            public void AddLine(string theText)
             {
                 //this.rtxtshow.Text = this.rtxtshow.Text + Environment.NewLine + theText.ToString();   //if add in new line
                 this.rtxtshow.Text = this.rtxtshow.Text + theText.ToString();
             }
 
+           
             /// <summary>
             /// it saves the data edited in the same file and gives a message box that its done.. and also can be done for multiple nodes
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            private void btnsave_Click(object sender, EventArgs e)
+            public void btnsave_Click(object sender, EventArgs e)
             {
+               
                 DataSet ds = new DataSet();
                 ds.ReadXml("BasicInfo.xml");                 //taking new file and saving in it....
                 ds.Tables[0].Rows[0]["name"] = rtxtshow.Text;   //taking node and saving it
@@ -78,15 +86,35 @@ namespace BasicInformation
                 ds.WriteXml("BasicInfo.xml");
 
                 MessageBox.Show("FILE UPDATED....");
+               
+                
             }
 
-            private void rtxtshow_TextChanged(object sender, EventArgs e)
+            public void rtxtshow_TextChanged(object sender, EventArgs e)
             {
 
             }
 
-           
+            [Test]
+            [Ignore("ignorong test")]
+            public void ignoretest()
+            {
+                
+            }
 
+            [Test]
+            public void negativetest()
+            {
+                Assert.Fail("this is failure, oh no");
+            }
+
+            [Test]
+            public void possitivetest()
+            {
+                int x = 7;
+                int y = 7;
+                Assert.AreEqual(x, y);
+            }
 
         }
     }
