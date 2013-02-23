@@ -20,12 +20,12 @@ namespace BasicInformation
             InitializeComponent();
         }
 
+
         /// <summary>
         /// This will read valid XML file and then display in richtext box.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        
         public void btndisplay_Click(object sender, EventArgs e)
         {
             
@@ -59,7 +59,7 @@ namespace BasicInformation
             }
         }
         
-            [Test]
+            
             /// <summary>
             /// this is for the placement of line in text box.
             /// </summary>
@@ -81,7 +81,7 @@ namespace BasicInformation
                
                 DataSet ds = new DataSet();
                 ds.ReadXml("BasicInfo.xml");                 //taking new file and saving in it....
-                ds.Tables[0].Rows[0]["name"] = rtxtshow.Text;   //taking node and saving it
+                ds.Tables[0].Rows[0]["name"] = "hi";// rtxtshow.Text;   //taking node and saving it
                 ds.AcceptChanges();
                 ds.WriteXml("BasicInfo.xml");
 
@@ -94,7 +94,10 @@ namespace BasicInformation
             {
 
             }
-
+            
+        /// <summary>
+        /// IGNORING TEST WHERE NOT DONE ANYTHING..
+        /// </summary>
             [Test]
             [Ignore("ignorong test")]
             public void ignoretest()
@@ -102,12 +105,17 @@ namespace BasicInformation
                 
             }
 
-            [Test]
+            /// <summary>
+            /// NEGATIVE TEST WHERE NEGATIVE RESULT WILL COME
+            /// </summary>
             public void negativetest()
             {
                 Assert.Fail("this is failure, oh no");
             }
-
+            
+            /// <summary>
+            /// POSSITIVE RESULT WHERE ADDITION IS DONE AND GET POSSITIVE RESULT
+            /// </summary>
             [Test]
             public void possitivetest()
             {
